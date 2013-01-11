@@ -7,8 +7,8 @@
 //
 
 #import "MasterViewController.h"
-
 #import "DetailViewController.h"
+#import "Person.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -16,6 +16,8 @@
 @end
 
 @implementation MasterViewController
+
+@synthesize people = _people;
 
 - (void)awakeFromNib
 {
@@ -30,6 +32,8 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    self.title = @"Age Lookup";
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,15 +61,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    return _people.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    UITableViewCell *cell = [tableView
+                             dequeueReusableCellWithIdentifier:@"PersonCell"];
+    Person *person = [self.people objectAtIndex:indexPath.row];
+    cell.textLabel.text = person.name;
     return cell;
 }
 

@@ -7,12 +7,27 @@
 //
 
 #import "AppDelegate.h"
+#import "Person.h"
+#import "MasterViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+ 
+    // TODO: Make NSDateFormatter owned by app
+    NSDateFormatter *mmddccyy = [[NSDateFormatter alloc] init];
+    mmddccyy.timeStyle = NSDateFormatterNoStyle;
+    mmddccyy.dateFormat = @"MM/dd/yyyy";
+    NSDate *d = [mmddccyy dateFromString:@"12/11/2005"];
+    
+    Person *person1 = [[Person alloc] initWithName:@"John Smith" birthday:d ];
+
+    NSMutableArray *people = [NSMutableArray arrayWithObjects:person1, nil];
+    
+    UINavigationController * navController = (UINavigationController *) self.window.rootViewController;
+    MasterViewController * masterController = [navController.viewControllers objectAtIndex:0];
+    masterController.people = people;
     return YES;
 }
 							
