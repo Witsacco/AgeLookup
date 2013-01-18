@@ -20,6 +20,7 @@
 		7F2C21C0169F96ED00C35EE5 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2C21BF169F96ED00C35EE5 /* MasterViewController.m */; };
 		7F2C21C3169F96ED00C35EE5 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2C21C2169F96ED00C35EE5 /* DetailViewController.m */; };
 		7F2C21CC169F99C200C35EE5 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2C21CB169F99C200C35EE5 /* Person.m */; };
+		A604EF0316A8E18D0011DC3C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A604EF0216A8E18D0011DC3C /* AddressBook.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		7F2C21C2169F96ED00C35EE5 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		7F2C21CA169F99C200C35EE5 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		7F2C21CB169F99C200C35EE5 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		A604EF0216A8E18D0011DC3C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A604EF0316A8E18D0011DC3C /* AddressBook.framework in Frameworks */,
 				7F2C21A4169F96ED00C35EE5 /* UIKit.framework in Frameworks */,
 				7F2C21A6169F96ED00C35EE5 /* Foundation.framework in Frameworks */,
 				7F2C21A8169F96ED00C35EE5 /* CoreGraphics.framework in Frameworks */,
@@ -62,6 +65,7 @@
 		7F2C2194169F96ED00C35EE5 = {
 			isa = PBXGroup;
 			children = (
+				A604EF0216A8E18D0011DC3C /* AddressBook.framework */,
 				7F2C21A9169F96ED00C35EE5 /* AgeLookup */,
 				7F2C21A2169F96ED00C35EE5 /* Frameworks */,
 				7F2C21A0169F96ED00C35EE5 /* Products */,
@@ -312,6 +316,7 @@
 				7F2C21C8169F96ED00C35EE5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -19,7 +19,7 @@
     NSDateFormatter *mmddccyy = [[NSDateFormatter alloc] init];
     mmddccyy.timeStyle = NSDateFormatterNoStyle;
     mmddccyy.dateFormat = @"MM/dd/yyyy";
-    NSDate *d = [mmddccyy dateFromString:@"12/11/2005"];
+    NSDate *d = [mmddccyy dateFromString:@"12/11/2012"];
     
     Person *person1 = [[Person alloc] initWithName:@"John Smith" birthday:d ];
 

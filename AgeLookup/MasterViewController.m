@@ -9,6 +9,7 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "Person.h"
+#import <AddressBook/AddressBook.h>
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -34,6 +35,35 @@
     self.navigationItem.rightBarButtonItem = addButton;
     
     self.title = @"Age Lookup";
+    
+    [self getAccesstoAddressBook];
+}
+
+- (void)getAccesstoAddressBook
+{
+    // Request authorization to Address Book
+    ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
+    
+    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
+        ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
+            // First time access has been granted, add the contact
+            NSLog(@"We got in");
+        });
+    }
+    else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
+        // The user has previously given access, add the contact
+        NSLog(@"Hacker");
+        
+        NSArray *thePeople = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(addressBookRef);
+        // Do whatever you need with thePeople...
+        NSLog(@"%d", sizeof(thePeople));
+
+    }
+    else {
+        // The user has previously denied access
+        // Send an alert telling user to change privacy setting in settings app
+        NSLog(@"DENIED");
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,7 +101,57 @@
                              dequeueReusableCellWithIdentifier:@"PersonCell"];
     Person *person = [self.people objectAtIndex:indexPath.row];
     cell.textLabel.text = person.name;
+    cell.detailTextLabel.text = [MasterViewController getFormattedAge:person.birthday];
     return cell;
+}
+
++ (NSString *) getFormattedAge:(NSDate *)birthday
+{
+    // TODO: handle case when person does not have a birthday
+    
+    
+    // Get the system calendar
+    NSCalendar *cal =[NSCalendar currentCalendar];
+    NSDate *now = [[NSDate alloc] init];
+    
+    // Request years, months, weeks
+    unsigned int unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekCalendarUnit;
+    
+    NSDateComponents *comps = [cal components:unitFlags fromDate:birthday toDate:now options:0];
+
+    int years = [comps year];
+    int months = [comps month];
+
+    NSLog(@"Age is %dyears %dmonths", years, months );
+
+    // 10+ yrs: years
+    if ( years >= 10 ) {
+        return [ NSString stringWithFormat:@"%d years", years ];
+    }
+    // 2-10 yrs: year + half year
+    else if ( years >= 2 ) {
+        if ( months < 6 ) {
+            return [ NSString stringWithFormat:@"%d years", years ];
+        }
+        else {
+            return [ NSString stringWithFormat:@"%d½ years", years ];
+        }
+    }
+    // 1-2 yrs: years + months
+    else if ( years >= 1 ) {
+        return [ NSString stringWithFormat:@"%d yr %d mo", years, months ];
+    }
+    // 6 mo - 1 yr : months
+    else if ( months >= 6 ) {
+        return [ NSString stringWithFormat:@"%d months", months ];
+    }
+    // 0-6 mos: weeks
+    else {
+        
+        NSDateComponents * weekComp = [cal components:NSWeekCalendarUnit fromDate:birthday toDate:now options:0];
+
+        return [ NSString stringWithFormat:@"%d weeks", [ weekComp week ] ];
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

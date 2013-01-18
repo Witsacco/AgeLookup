@@ -28,6 +28,7 @@
     return -[self.birthday timeIntervalSinceNow];
 }
 
+// TODO: Deprecated! Remove this.
 - (NSString*)getAge {
     
     // Get the system calendar
