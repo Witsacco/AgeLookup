@@ -36,10 +36,53 @@
     
     self.title = @"Age Lookup";
     
-    [self getAccesstoAddressBook];
+    [self getContactsFromAddressBook];
+    
+    NSLog( @"View Did Load" );
 }
 
-- (void)getAccesstoAddressBook
+- (void)loadContacts:(NSArray *)contacts
+{
+    NSMutableArray * people = [MasterViewController makePeopleFromContacts:contacts];
+    
+    self.people = people;
+}
+
++ (NSMutableArray *)makePeopleFromContacts:(NSArray *)contacts
+{
+    NSMutableArray *people = [[NSMutableArray alloc] init];
+    
+    NSDateFormatter *mmddccyy = [[NSDateFormatter alloc] init];
+    mmddccyy.timeStyle = NSDateFormatterNoStyle;
+    mmddccyy.dateFormat = @"MM/dd/yyyy";
+    
+    for (NSUInteger i = 0; i < [contacts count]; ++i) {
+        // Get the contact
+        ABRecordRef contact = (__bridge ABRecordRef)contacts[i];
+        
+        // Get the contact's name
+        NSString *firstName = (__bridge_transfer NSString *)ABRecordCopyValue(contact, kABPersonFirstNameProperty);
+        NSString *lastName =  (__bridge_transfer NSString *)ABRecordCopyValue(contact, kABPersonLastNameProperty);
+        NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+        
+        // Get the contact's birthday
+        NSDate *birthday = (__bridge_transfer NSDate *)ABRecordCopyValue(contact, kABPersonBirthdayProperty);
+        
+        // Check for null birthday
+        if ( birthday ) {
+            Person *person = [[Person alloc] initWithName:fullName birthday:birthday];
+            [people addObject:person];
+        }
+        else {
+            NSLog(@"We found %@ but has no birthday", fullName);
+        }
+    }
+    
+    return people;
+    
+}
+
+- (void)getContactsFromAddressBook
 {
     // Request authorization to Address Book
     ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
@@ -47,7 +90,14 @@
     if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
         ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
             // First time access has been granted, add the contact
-            NSLog(@"We got in");
+            
+            if ( error ) {
+                NSLog( @"We found an error!!" );
+            }
+            else {
+                NSArray *thePeople = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(addressBookRef);
+                [self loadContacts:thePeople];
+            }
         });
     }
     else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
@@ -56,8 +106,10 @@
         
         NSArray *thePeople = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(addressBookRef);
         // Do whatever you need with thePeople...
-        NSLog(@"%d", sizeof(thePeople));
-
+        NSLog(@"%d", [thePeople count]);
+        
+        [self loadContacts:thePeople];
+        
     }
     else {
         // The user has previously denied access
@@ -65,6 +117,7 @@
         NSLog(@"DENIED");
     }
 }
+
 
 - (void)didReceiveMemoryWarning
 {
