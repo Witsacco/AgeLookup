@@ -14,23 +14,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
- 
-    // TODO: Make NSDateFormatter owned by app
-    NSDateFormatter *mmddccyy = [[NSDateFormatter alloc] init];
-    mmddccyy.timeStyle = NSDateFormatterNoStyle;
-    mmddccyy.dateFormat = @"MM/dd/yyyy";
-    NSDate *d = [mmddccyy dateFromString:@"12/11/2012"];
+    [TestFlight takeOff:@"2b883faf-60be-4213-a9b0-0f938f2a2f11"];
     
-    Person *person1 = [[Person alloc] initWithName:@"John Smith" birthday:d ];
-
-    NSMutableArray *people = [NSMutableArray arrayWithObjects:person1, nil];
-    
-    UINavigationController * navController = (UINavigationController *) self.window.rootViewController;
-    MasterViewController * masterController = [navController.viewControllers objectAtIndex:0];
-    masterController.people = people;
     return YES;
 }
-							
+
+						
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
