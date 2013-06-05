@@ -12,4 +12,6 @@
 
 @property (strong) NSMutableArray *people;
 
+- (void)getContactsFromAddressBook;
+
 @end

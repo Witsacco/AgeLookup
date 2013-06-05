@@ -82,6 +82,18 @@
     
 }
 
++ (NSArray*)getSortedContacts:(const ABAddressBookRef*) abRef
+{
+
+    ABRecordRef source = ABAddressBookCopyDefaultSource( abRef );
+    
+    NSArray *thePeople = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering(abRef, source, (CFComparatorFunction) ABPersonComparePeopleByName );
+
+    NSLog(@"Num people: %d", [thePeople count]);
+
+    return thePeople;
+}
+
 - (void)getContactsFromAddressBook
 {
     // Request authorization to Address Book
@@ -95,21 +107,15 @@
                 NSLog( @"We found an error!!" );
             }
             else {
-                NSArray *thePeople = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(addressBookRef);
-                [self loadContacts:thePeople];
+                NSArray *people = [MasterViewController getSortedContacts:addressBookRef];
+                [self loadContacts:people];
             }
         });
     }
     else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
         // The user has previously given access, add the contact
-        NSLog(@"Hacker");
-        
-        NSArray *thePeople = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(addressBookRef);
-        // Do whatever you need with thePeople...
-        NSLog(@"%d", [thePeople count]);
-        
-        [self loadContacts:thePeople];
-        
+        NSArray *people = [MasterViewController getSortedContacts:addressBookRef];
+        [self loadContacts:people];
     }
     else {
         // The user has previously denied access
@@ -243,7 +249,7 @@
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
+        NSDate *object = _people[indexPath.row];
         [[segue destinationViewController] setDetailItem:object];
     }
 }

@@ -2,11 +2,8 @@ Look up birthdays.
 
 TODO:
 
-1. Retrieve contacts from the contact list
-2. Populate a list of only the contacts that have birthdays defined
-   - The array is of Person objects
-3. Create detail screen
-4. Handle corner cases (e.g. no contacts with birthdays)
-5. Instrument logging? How often is it being used?
-   - "Google Analytics for iPhone apps"
-6. Deploy to Phone
+* Refactor so that the data is not stored in MasterViewController, but instead in AppDelegate. Reference ScaryBugs for info.
+
+* Create detail screen
+* Instrument logging? How often is it being used? - "Google Analytics for iPhone apps"
+* Deploy to Phone

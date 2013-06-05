@@ -35,6 +35,16 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+
+    // Get a handle to the MasterViewController
+    UINavigationController * navController = (UINavigationController *) self.window.rootViewController;
+    MasterViewController * masterController = [navController.viewControllers objectAtIndex:0];
+
+    // Refresh the contacts list in case it has changed
+    [ masterController getContactsFromAddressBook ];
+    
+    // Tell the table view to refresh
+    [ masterController.tableView reloadData ];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
