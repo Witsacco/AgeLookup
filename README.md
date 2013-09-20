@@ -1,6 +1,8 @@
-Look up birthdays.
+# AgeLookup
 
-TODO:
+An iOS app to look up birthdays.
+
+## TODO
 
 * Refactor so that the data is not stored in MasterViewController, but instead in AppDelegate. Reference ScaryBugs for info.
 
