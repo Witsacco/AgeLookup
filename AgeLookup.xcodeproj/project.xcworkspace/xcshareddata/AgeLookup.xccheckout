@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DD051DEF-BE00-4C1A-90D4-82AD0133EB01</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AgeLookup</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F48A71E0-6027-4F7F-BB3F-160E84BAE6E9</key>
+		<string>https://github.com/Witsacco/AgeLookup.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>AgeLookup.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F48A71E0-6027-4F7F-BB3F-160E84BAE6E9</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Witsacco/AgeLookup.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F48A71E0-6027-4F7F-BB3F-160E84BAE6E9</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F48A71E0-6027-4F7F-BB3F-160E84BAE6E9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AgeLookup</string>
+		</dict>
+	</array>
+</dict>
+</plist>
