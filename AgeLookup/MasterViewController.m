@@ -185,24 +185,24 @@
 
     // 10+ yrs: years
     if ( years >= 10 ) {
-        return [ NSString stringWithFormat:@"%d years", years ];
+        return [ NSString stringWithFormat:@"%d", years ];
     }
     // 2-10 yrs: year + half year
     else if ( years >= 2 ) {
         if ( months < 6 ) {
-            return [ NSString stringWithFormat:@"%d years", years ];
+            return [ NSString stringWithFormat:@"%d", years ];
         }
         else {
-            return [ NSString stringWithFormat:@"%d½ years", years ];
+            return [ NSString stringWithFormat:@"%d ½", years ];
         }
     }
     // 1-2 yrs: years + months
     else if ( years >= 1 ) {
-        return [ NSString stringWithFormat:@"%d yr %d mo", years, months ];
+        return [ NSString stringWithFormat:@"%d %d mo", years, months ];
     }
     // 6 mo - 1 yr : months
     else if ( months >= 6 ) {
-        return [ NSString stringWithFormat:@"%d months", months ];
+        return [ NSString stringWithFormat:@"%d mo.", months ];
     }
     // 0-6 mos: weeks
     else {
